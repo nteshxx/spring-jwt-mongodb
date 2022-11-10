@@ -13,13 +13,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.auth.jwtserver.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-@EnableWebMvc
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
     
@@ -42,12 +40,9 @@ public class WebSecurityConfig {
         http
         	.authorizeHttpRequests((authorize) -> authorize
         			.antMatchers("/api/auth/**").permitAll()
-        			.antMatchers("/v3/api-docs").permitAll()
-        			.antMatchers("/v2/api-docs").permitAll()
-        			.antMatchers("/swagger-resources/**").permitAll()
-        			.antMatchers("/swagger-ui/**").permitAll()
-        			.antMatchers("/swagger-ui.html").permitAll()
-        			.antMatchers("/webjars/**.").permitAll()
+        			.antMatchers("/v3/api-docs/**").permitAll()
+        			.antMatchers("/api/swagger-ui/**").permitAll()
+                    .antMatchers("/api/docs/**").permitAll()
                     .anyRequest().authenticated()
                 )
                 .csrf().disable()
