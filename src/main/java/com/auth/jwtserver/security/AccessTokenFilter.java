@@ -1,9 +1,13 @@
 package com.auth.jwtserver.security;
 
-import com.auth.jwtserver.document.User;
-import com.auth.jwtserver.jwt.JwtHelper;
-import com.auth.jwtserver.service.UserService;
-import lombok.extern.log4j.Log4j2;
+import java.io.IOException;
+import java.util.Optional;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,12 +15,12 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Optional;
+import com.auth.jwtserver.document.User;
+import com.auth.jwtserver.exception.InvalidTokenException;
+import com.auth.jwtserver.service.UserService;
+import com.auth.jwtserver.utility.JwtHelper;
+
+import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class AccessTokenFilter extends OncePerRequestFilter {
@@ -38,8 +42,10 @@ public class AccessTokenFilter extends OncePerRequestFilter {
                 upat.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(upat);
             }
+        } catch (InvalidTokenException e) {
+            log.warn("Invalid Token");
         } catch (Exception e) {
-            log.error("cannot set authentication", e);
+            log.error("Internal Server Error");
         }
 
         filterChain.doFilter(request, response);

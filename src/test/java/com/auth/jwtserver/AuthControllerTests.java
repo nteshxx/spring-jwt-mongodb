@@ -20,21 +20,21 @@ public class AuthControllerTests {
 	@Autowired
 	MockMvc mockMvc;
 	
-	@Test
-	@Order(1)
-	public void shouldSignup() {
-		try {
-			mockMvc.perform(post("/api/auth/signup")
-					.content("{\n\"username\": \"nitesh\",\n\"email\": \"nteshxx@gmail.com\",\n\"password\": \"password\"\n}")
-					.contentType(MediaType.APPLICATION_JSON))
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.message").value("Successfully Signed Up"))
-				.andReturn();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	@Order(1)
+//	public void shouldSignup() {
+//		try {
+//			mockMvc.perform(post("/api/auth/signup")
+//					.content("{\n\"username\": \"nitesh\",\n\"email\": \"nteshxx@gmail.com\",\n\"password\": \"password\"\n}")
+//					.contentType(MediaType.APPLICATION_JSON))
+//				.andDo(print())
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$.message").value("Successfully Signed Up"))
+//				.andReturn();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	@Test
 	@Order(2)

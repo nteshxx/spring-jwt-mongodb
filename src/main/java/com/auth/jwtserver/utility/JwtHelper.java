@@ -1,21 +1,21 @@
-package com.auth.jwtserver.jwt;
+package com.auth.jwtserver.utility;
 
+import java.util.Date;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import com.auth.jwtserver.document.RefreshToken;
+import com.auth.jwtserver.document.User;
+import com.auth.jwtserver.exception.InvalidTokenException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth.jwtserver.document.RefreshToken;
-import com.auth.jwtserver.document.User;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import java.util.Date;
-import java.util.Optional;
 
 @Component
-@Log4j2
 public class JwtHelper {
     static final String issuer = "MyApp";
 
@@ -62,19 +62,17 @@ public class JwtHelper {
     private Optional<DecodedJWT> decodeAccessToken(String token) {
         try {
             return Optional.of(accessTokenVerifier.verify(token));
-        } catch (JWTVerificationException e) {
-            log.error("invalid access token", e);
+        } catch (JWTVerificationException jwtVerfEx) {
+            throw new InvalidTokenException();
         }
-        return Optional.empty();
     }
 
     private Optional<DecodedJWT> decodeRefreshToken(String token) {
         try {
             return Optional.of(refreshTokenVerifier.verify(token));
         } catch (JWTVerificationException e) {
-            log.error("invalid refresh token", e);
+        	throw new InvalidTokenException();
         }
-        return Optional.empty();
     }
 
     public boolean validateAccessToken(String token) {

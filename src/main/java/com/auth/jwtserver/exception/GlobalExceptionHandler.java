@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.auth.jwtserver.response.ResponseBuilder;
+import com.auth.jwtserver.utility.ResponseBuilder;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -15,13 +15,19 @@ public class GlobalExceptionHandler {
         return ResponseBuilder.build(HttpStatus.UNAUTHORIZED, "Invalid Token", "No message available", null);
     }
     
+    @ExceptionHandler(IncorrectLoginCredentialsException.class)
+    public ResponseEntity<Object> incorrectLoginCredentialsException() {
+        return ResponseBuilder.build(HttpStatus.UNAUTHORIZED, "Incorrect Username Or Password", "No message available", null);
+    }
+    
     @ExceptionHandler(UserAlreadyExistException.class)
     public ResponseEntity<Object> userAlreadyExistException() {
         return ResponseBuilder.build(HttpStatus.BAD_REQUEST, "Username Is Already Taken", "No message available", null);
     }
     
-    @ExceptionHandler(IncorrectLoginCredentialsException.class)
-    public ResponseEntity<Object> incorrectLoginCredentialsException() {
-        return ResponseBuilder.build(HttpStatus.UNAUTHORIZED, "Incorrect Username Or Password", "No message available", null);
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> userNotFoundException() {
+        return ResponseBuilder.build(HttpStatus.NOT_FOUND, "User Not Found", "No message available", null);
     }
+    
 }

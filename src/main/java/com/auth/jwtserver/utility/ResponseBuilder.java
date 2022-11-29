@@ -1,4 +1,4 @@
-package com.auth.jwtserver.response;
+package com.auth.jwtserver.utility;
 
 import java.time.Instant;
 import java.util.LinkedHashMap;

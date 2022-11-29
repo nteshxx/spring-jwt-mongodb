@@ -28,6 +28,9 @@ public class WebSecurityConfig {
     private AccessTokenEntryPoint accessTokenEntryPoint;
 	
 	@Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
     @Bean
@@ -51,6 +54,7 @@ public class WebSecurityConfig {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(accessTokenEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler)
                 )
                 .addFilterBefore(accessTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
