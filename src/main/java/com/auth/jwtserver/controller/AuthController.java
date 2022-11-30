@@ -26,7 +26,7 @@ public class AuthController {
 	@PostMapping("/signup")
     public ResponseEntity<Object> signup(@Valid @RequestBody SignupDto dto) {
         TokenDto responseData = authService.signup(dto);
-        return ResponseBuilder.build(HttpStatus.OK, null, "Successfully Signed Up", responseData);
+        return ResponseBuilder.build(HttpStatus.CREATED, null, "Successfully Signed Up", responseData);
     }
 
     @PostMapping("/login")

@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(UserAlreadyExistException.class)
     public ResponseEntity<Object> userAlreadyExistException() {
-        return ResponseBuilder.build(HttpStatus.BAD_REQUEST, "Username Is Already Taken", "No message available", null);
+        return ResponseBuilder.build(HttpStatus.CONFLICT, "Username Is Already Taken", "No message available", null);
     }
     
     @ExceptionHandler(UserNotFoundException.class)

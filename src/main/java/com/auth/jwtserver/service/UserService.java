@@ -25,4 +25,9 @@ public class UserService implements UserDetailsService {
 		return userRepository.findById(id)
 				.orElseThrow(() -> new UserNotFoundException());
 	}
+	
+	public void deleteUserById(String id) {
+		userRepository.deleteById(id);
+	}
+	
 }

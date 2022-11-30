@@ -11,11 +11,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Document
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class User implements UserDetails {
 	
 	private static final long serialVersionUID = 8857553857057109075L;

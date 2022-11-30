@@ -20,7 +20,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     	String content = "{\r\n"
     			+ "    \"timestamp\": \"" + Instant.now() +"\",\r\n"
     			+ "    \"status\": 403,\r\n"
-    			+ "    \"error\": \"Forbidden\",\r\n"
+    			+ "    \"error\": \"Access Denied\",\r\n"
     			+ "    \"message\": \"You Do Not Have Permission To Access This Resouce\",\r\n"
     			+ "    \"data\": null\r\n"
     			+ "}";

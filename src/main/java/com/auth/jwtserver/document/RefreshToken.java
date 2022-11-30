@@ -4,10 +4,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Document
-@Data
+@Getter
+@Setter
 public class RefreshToken {
 
 	@Id
