@@ -15,6 +15,8 @@ import com.auth.jwtserver.document.User;
 import com.auth.jwtserver.service.UserService;
 import com.auth.jwtserver.utility.ResponseBuilder;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -22,11 +24,13 @@ public class UserController {
 	@Autowired
     UserService userService;
 
+	@Operation(summary = "Get User Profile")
     @GetMapping("/profile")
     public ResponseEntity<Object> getUserProfile(@AuthenticationPrincipal User user) {
     	return ResponseBuilder.build(HttpStatus.OK, null, "Success", user);
     }
 
+	@Operation(summary = "Get Other Users Profile")
     @GetMapping("/{id}")
     @PreAuthorize("#user.id == #id")
     public ResponseEntity<Object> getUserById(@AuthenticationPrincipal User user, @PathVariable String id) {
@@ -34,6 +38,7 @@ public class UserController {
     	return ResponseBuilder.build(HttpStatus.OK, null, "Success", userProfile);
     }
     
+	@Operation(summary = "Delete Users Profile")
     @DeleteMapping("/{id}")
     @PreAuthorize("#user.id == #id")
     public ResponseEntity<Object> deleteUserById(@AuthenticationPrincipal User user, @PathVariable String id) {

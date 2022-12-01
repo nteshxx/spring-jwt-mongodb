@@ -1,5 +1,7 @@
 package com.auth.jwtserver.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,7 @@ public class TokenDto {
     
 	private String accessToken;
     
+	@NotBlank
 	private String refreshToken;
 	
 }
