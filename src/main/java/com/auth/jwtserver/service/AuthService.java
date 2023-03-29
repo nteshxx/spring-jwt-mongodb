@@ -1,7 +1,6 @@
 package com.auth.jwtserver.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +17,6 @@ import com.auth.jwtserver.dto.SignupDto;
 import com.auth.jwtserver.dto.TokenDto;
 import com.auth.jwtserver.exception.IncorrectLoginCredentialsException;
 import com.auth.jwtserver.exception.InvalidTokenException;
-import com.auth.jwtserver.exception.UserAlreadyExistException;
 import com.auth.jwtserver.repository.RefreshTokenRepository;
 import com.auth.jwtserver.repository.UserRepository;
 import com.auth.jwtserver.utility.JwtHelper;
@@ -47,13 +45,8 @@ public class AuthService {
     @Transactional
     public TokenDto signup(SignupDto dto) {
         User user = new User(dto.getUsername(), dto.getEmail(), passwordEncoder.encode(dto.getPassword()));
+        userRepository.save(user);
         
-        try {
-        	userRepository.save(user);
-        } catch(DuplicateKeyException dupKeyEx) {
-        	throw new UserAlreadyExistException();
-        }
-
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setOwner(user);
         refreshTokenRepository.save(refreshToken);

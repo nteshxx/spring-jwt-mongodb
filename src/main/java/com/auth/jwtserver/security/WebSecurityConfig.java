@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,7 +18,7 @@ import com.auth.jwtserver.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 public class WebSecurityConfig {
     
 	@Autowired
@@ -34,18 +34,18 @@ public class WebSecurityConfig {
 	private PasswordEncoder passwordEncoder;
 
     @Bean
-    public AccessTokenFilter accessTokenFilter() {
+    AccessTokenFilter accessTokenFilter() {
         return new AccessTokenFilter();
     }
     
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
         	.authorizeHttpRequests((authorize) -> authorize
-        			.antMatchers("/api/auth/**").permitAll()
-        			.antMatchers("/v3/api-docs/**").permitAll()
-        			.antMatchers("/api/swagger-ui/**").permitAll()
-                    .antMatchers("/api/docs/**").permitAll()
+        			.requestMatchers("/api/auth/**").permitAll()
+        			.requestMatchers("/v3/api-docs/**").permitAll()
+        			.requestMatchers("/api/swagger-ui/**").permitAll()
+                    .requestMatchers("/api/docs/**").permitAll()
                     .anyRequest().authenticated()
                 )
                 .csrf().disable()
@@ -61,7 +61,7 @@ public class WebSecurityConfig {
     }
     
     @Bean
-    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authConfig) throws Exception {
+    AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
   

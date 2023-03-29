@@ -36,7 +36,7 @@ public class Config extends AbstractMongoClientConfiguration {
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() {
+    MongoTemplate mongoTemplate() {
         return new MongoTemplate(mongoClient(), databaseName);
     }
 

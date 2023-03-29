@@ -156,8 +156,8 @@ public class UserControllerTests {
 					.header("Authorization", "Bearer " + validAccessToken))
 				.andDo(print())
 				.andExpect(status().isForbidden())
-				.andExpect(jsonPath("$.error").value("Access Denied"))
-				.andExpect(jsonPath("$.message").value("You Do Not Have Permission To Access This Resouce"))
+				.andExpect(jsonPath("$.error").value("You Do Not Have Permission To Access This Resouce"))
+				.andExpect(jsonPath("$.message").value("Access Denied"))
 				.andReturn();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -203,8 +203,8 @@ public class UserControllerTests {
 					.header("Authorization", "Bearer " + validAccessToken))
 				.andDo(print())
 				.andExpect(status().isForbidden())
-				.andExpect(jsonPath("$.error").value("Access Denied"))
-				.andExpect(jsonPath("$.message").value("You Do Not Have Permission To Access This Resouce"))
+				.andExpect(jsonPath("$.error").value("You Do Not Have Permission To Access This Resouce"))
+				.andExpect(jsonPath("$.message").value("Access Denied"))
 				.andReturn();
 		} catch (Exception e) {
 			e.printStackTrace();

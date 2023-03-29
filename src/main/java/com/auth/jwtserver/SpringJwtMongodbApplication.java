@@ -19,7 +19,7 @@ public class SpringJwtMongodbApplication {
 	}
 	
 	@Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

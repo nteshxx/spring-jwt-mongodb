@@ -1,7 +1,5 @@
 package com.auth.jwtserver.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import com.auth.jwtserver.service.AuthService;
 import com.auth.jwtserver.utility.ResponseBuilder;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -41,21 +40,21 @@ public class AuthController {
 
 	@Operation(summary = "User Logout From Single Device")
     @PostMapping("/logout")
-    public ResponseEntity<Object> logout(@RequestBody TokenDto dto) {
+    public ResponseEntity<Object> logout(@Valid @RequestBody TokenDto dto) {
         authService.logout(dto);
         return ResponseBuilder.build(HttpStatus.OK, null, "Successfully Logged Out", null);
     }
 
 	@Operation(summary = "User Logout From All Devices")
     @PostMapping("/logout-all")
-    public ResponseEntity<Object> logoutAll(@RequestBody TokenDto dto) {
+    public ResponseEntity<Object> logoutAll(@Valid @RequestBody TokenDto dto) {
         authService.logoutAll(dto);
     	return ResponseBuilder.build(HttpStatus.OK, null, "Successfully Logged Out Of All Devices", null);
     }
 
 	@Operation(summary = "Generate New Access Token")
     @PostMapping("/access-token")
-    public ResponseEntity<Object> accessToken(@RequestBody TokenDto dto) {
+    public ResponseEntity<Object> accessToken(@Valid @RequestBody TokenDto dto) {
         TokenDto data = authService.accessToken(dto);
         return ResponseBuilder.build(HttpStatus.OK, null, "Successfully Generated New Access Token", data);
     }
