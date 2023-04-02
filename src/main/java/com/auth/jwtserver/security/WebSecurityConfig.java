@@ -41,20 +41,20 @@ public class WebSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        	.authorizeHttpRequests((authorize) -> authorize
-        			.requestMatchers("/api/auth/**").permitAll()
-        			.requestMatchers("/v3/api-docs/**").permitAll()
-        			.requestMatchers("/api/swagger-ui/**").permitAll()
-                    .requestMatchers("/api/docs/**").permitAll()
-                    .anyRequest().authenticated()
+                .authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
+                                .requestMatchers("/api/swagger-ui/**").permitAll()
+                                .requestMatchers("/api/docs/**").permitAll()
+                                .anyRequest().authenticated()
                 )
-                .csrf().disable()
-                .cors().disable()
-                .httpBasic().disable()
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.disable())
+                .httpBasic(httpBasic -> httpBasic.disable())
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptions) -> exceptions
-                        .authenticationEntryPoint(accessTokenEntryPoint)
-                        .accessDeniedHandler(customAccessDeniedHandler)
+                                .authenticationEntryPoint(accessTokenEntryPoint)
+                                .accessDeniedHandler(customAccessDeniedHandler)
                 )
                 .addFilterBefore(accessTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

@@ -21,7 +21,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     	String content = "{\r\n"
     			+ "    \"timestamp\": \"" + Instant.now() +"\",\r\n"
     			+ "    \"status\": " + HttpStatus.FORBIDDEN.value() + ",\r\n"
-    			+ "    \"error\": \"You Do Not Have Permission To Access This Resouce\",\r\n"
+    			+ "    \"error\": \"You Don't Have Permission To Access This Resouce\",\r\n"
     			+ "    \"message\": \"" + ex.getMessage() + "\",\r\n"
     			+ "    \"data\": null\r\n"
     			+ "}";

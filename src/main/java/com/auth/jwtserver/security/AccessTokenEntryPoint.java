@@ -20,7 +20,7 @@ public class AccessTokenEntryPoint implements AuthenticationEntryPoint {
     	String content = "{\r\n"
     			+ "    \"timestamp\": \"" + Instant.now() +"\",\r\n"
     			+ "    \"status\": " + HttpStatus.UNAUTHORIZED.value() + ",\r\n"
-    			+ "    \"error\": \"Invalid Token\",\r\n"
+    			+ "    \"error\": \"Authentication Required\",\r\n"
     			+ "    \"message\": \"" + authException.getMessage() + "\",\r\n"
     			+ "    \"data\": null\r\n"
     			+ "}";
