@@ -42,10 +42,12 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/v3/api-docs/**").permitAll()
-                                .requestMatchers("/api/swagger-ui/**").permitAll()
-                                .requestMatchers("/api/docs/**").permitAll()
+                                .requestMatchers(
+                                		"/api/auth/**",
+                                		"/v3/api-docs/**",
+                                		"/api/swagger-ui/**",
+                                		"/api/docs/**"
+                                		).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())

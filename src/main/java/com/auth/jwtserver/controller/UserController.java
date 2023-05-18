@@ -16,6 +16,7 @@ import com.auth.jwtserver.service.UserService;
 import com.auth.jwtserver.utility.ResponseBuilder;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/api/users")
@@ -26,6 +27,7 @@ public class UserController {
 
 	@Operation(summary = "Get User Profile")
     @GetMapping("/profile")
+	@SecurityRequirement(name = "bearerAuthToken")
     public ResponseEntity<Object> getUserProfile(@AuthenticationPrincipal User user) {
     	return ResponseBuilder.build(HttpStatus.OK, null, "Success", user);
     }
@@ -33,6 +35,7 @@ public class UserController {
 	@Operation(summary = "Get Other Users Profile")
     @GetMapping("/{id}")
     @PreAuthorize("#user.id == #id")
+	@SecurityRequirement(name = "bearerAuthToken")
     public ResponseEntity<Object> getUserById(@AuthenticationPrincipal User user, @PathVariable String id) {
     	User userProfile = userService.findById(id);
     	return ResponseBuilder.build(HttpStatus.OK, null, "Success", userProfile);
@@ -41,6 +44,7 @@ public class UserController {
 	@Operation(summary = "Delete Users Profile")
     @DeleteMapping("/{id}")
     @PreAuthorize("#user.id == #id")
+	@SecurityRequirement(name = "bearerAuthToken")
     public ResponseEntity<Object> deleteUserById(@AuthenticationPrincipal User user, @PathVariable String id) {
     	userService.deleteUserById(id);
     	return ResponseBuilder.build(HttpStatus.OK, null, "Account Deleted", null);
